@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
+
 function App() {
+  const [yourName, setName] = useState( {firstName: '', lastName: ''} )
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setName( {...yourName, [name]: value });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+      <div style={{display: 'flex'}}>
+        FIRST NAME: <input value={yourName.firstname} onChange={handleChange} name='firstName' />
+      </div>
+      <div style={{display: 'flex'}}>
+        LAST NAME: <input value={yourName.lastname} onChange={ e => setName({ ...yourName, lastName: e.target.value})} />
+      </div>
+      <div>
+        you are {yourName.firstName} {yourName.lastName}
+      </div>
     </div>
   );
 }
