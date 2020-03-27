@@ -1,24 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [count, setCount] = useState(0);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        {/* when ever we give a parameter inside the state setting function it points to the current state value  */}
+        <button onClick={() => {setCount( preValue => preValue + 1 )}} > 
+          + ADD
+        </button>
+        <div>
+         COUNT VALUE IS : {count}
+        </div>
+        <button onClick={() => {setCount( preValue => preValue - 1 )}} >
+          - MINUS
+        </button>
+      </div>
     </div>
   );
 }
