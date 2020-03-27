@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
+
 function App() {
+  const [number, setNumber] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const handleChange = (event) => {
+    if (event.target.name === 'reset') {
+      setCount(0);
+    } else {
+      setCount( prevCount => prevCount + 1 );
+      setNumber( [...number, count])
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
+      <button onClick={handleChange}>Increment</button>
+      <button name='reset' onClick={handleChange}> Reset</button>
+      {number.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+      {count}
     </div>
   );
 }
