@@ -1,6 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import B from './componentB';
+export const dataContext = React.createContext()
 
 const initialState = {count: 0}
 const reducer = (state, action) => {
@@ -20,16 +21,11 @@ const reducer = (state, action) => {
 function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   return (
-    <div className="App">
-      <div>
-        {state.count}
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <button onClick={() => {dispatch({type: 'increment', value: 2})}}> ADD</button>
-          <button onClick={()=>{dispatch({type: 'decrement', value: 1})}}> SUBTRACT</button>
-          <button onClick={()=>{dispatch({type: 'reset', value: 0})}}> reset</button>
-        </div>
+    <dataContext.provider value={ {stateVal: state, dataDispatch: dispatch} }>
+      <div className="App">
+      <B />
       </div>
-    </div>
+    </dataContext.provider>
   );
 }
 
