@@ -2,23 +2,33 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const initialState = {count: 0}
+const reducer = (state, action) => {
+  const value = action.value;
+  switch(action.type) {
+    case 'increment':
+      return { ...state, count: state.count + value}
+    case 'decrement': 
+      return { ...state, count: state.count - value}
+    case 'reset': 
+      return initialState
+    default:
+     throw new Error();
+  }
+}
+
 function App() {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        {state.count}
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <button onClick={() => {dispatch({type: 'increment', value: 2})}}> ADD</button>
+          <button onClick={()=>{dispatch({type: 'decrement', value: 1})}}> SUBTRACT</button>
+          <button onClick={()=>{dispatch({type: 'reset', value: 0})}}> reset</button>
+        </div>
+      </div>
     </div>
   );
 }
